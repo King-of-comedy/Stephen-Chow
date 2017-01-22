@@ -1,15 +1,31 @@
 /**
  * Created by Ma Ming on 2017/1/20.
  */
-var express = require('express'),
-    app = express(),
-    port = 9527;
+var jsonServer = require('json-server');
+var path = require('path');
+var server = jsonServer.create();
+var router = jsonServer.router(path.join(__dirname, 'mock/db.json'));
+var middlewares = jsonServer.defaults();
 
-// 配置路由
-app.get('/', function (req, res) {
-    res.send('Hello World!');
+server.use(middlewares);
+// Add custom routes before JSON Server router
+server.get('/echo', function (req, res) {
+    res.jsonp(req.query)
 });
-// 生成server
-app.listen(port, function () {
-    console.log('Example app listening at localhost:'+ port);
+
+// To handle POST, PUT and PATCH you need to use a body-parser
+// You can use the one used by JSON Server
+server.use(jsonServer.bodyParser)
+server.use(function (req, res, next) {
+    if (req.method === 'POST') {
+        req.body.createdAt = Date.now()
+    }
+    // Continue to JSON Server router
+    next()
+});
+
+// Use default router
+server.use(router)
+server.listen(9527, function () {
+    console.log('JSON Server is running')
 });
