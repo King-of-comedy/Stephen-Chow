@@ -6,6 +6,7 @@ var path = require('path');
 var server = jsonServer.create();
 var router = jsonServer.router(path.join(__dirname, 'mock/db.json'));
 var middlewares = jsonServer.defaults();
+var routes = require('./mock/routes.json');
 
 server.use(middlewares);
 // Add custom routes before JSON Server router
@@ -23,6 +24,8 @@ server.use(function (req, res, next) {
     // Continue to JSON Server router
     next();
 });
+// 重写router规则
+server.use(jsonServer.rewriter(routes));
 
 // Use default router
 server.use(router);
