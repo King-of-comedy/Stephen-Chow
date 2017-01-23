@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="scApp">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
-<body>
+<body ng-controller="scAppCtrl as vm">
+{{vm.asd}}
+<button ng-click="vm.add()">add</button>
+<script src="../node_modules/angular/angular.js"></script>
+<script src="../node_modules/angular-resource/angular-resource.js"></script>
+<script src="../node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+<script src="src/index.js"></script>
+<script>
+    angular.module('scApp', ['ngResource', 'ui.router']).controller('scAppCtrl', ctrl);
 
+    ctrl.$inject = ['$scope', 'testResource'];
+
+    function ctrl($scope, testResource) {
+        var vm = this;
+        vm.asd = 2;
+        vm.add = () => {
+            testResource.save({
+                "id": 5,
+                "title": "test1",
+                "author": "mmmaming"
+            }, (res) => {
+                console.log(res[0]);
+            })
+        }
+    }
+    angular.module('scApp').factory('testResource', testResource);
+    testResource.$inject = ['$resource'];
+    function testResource($resource) {
+        return $resource('/posts:id');
+    }
+
+</script>
 </body>
 </html>

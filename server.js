@@ -5,10 +5,17 @@ var jsonServer = require('json-server');
 var path = require('path');
 var server = jsonServer.create();
 var router = jsonServer.router(path.join(__dirname, 'mock/db.json'));
-var middlewares = jsonServer.defaults();
 var routes = require('./mock/routes.json');
 
-server.use(middlewares);
+// Set default middlewares (logger, static, cors and no-cache)
+// 设置静态文件目录
+server.use(jsonServer.defaults({static: path.resolve(__dirname)}));
+
+// server.get('/', function (req, res) {
+//     console.log(123);
+//     res.sendFile(path.join(__dirname, 'src/index.html'));
+// });
+
 // Add custom routes before JSON Server router
 server.get('/echo', function (req, res) {
     res.jsonp(req.query);

@@ -1,10 +1,40 @@
 {
   "posts": [
-    { "id": 1, "title": "json-server", "author": "typicode" },
-    { "id": 2, "title": "json-server-two", "author": "mmmaming" }
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    },
+    {
+      "id": 2,
+      "title": "json-server-two",
+      "author": "mmmaming"
+    },
+    {
+      "name": "张三",
+      "createdAt": 1485160116597,
+      "id": 3
+    },
+    {
+      "name": "张三",
+      "createdAt": 1485161143441,
+      "id": 4
+    },
+    {
+      "id": 5,
+      "title": "test1",
+      "author": "mmmaming",
+      "createdAt": 1485161185036
+    }
   ],
   "comments": [
-    { "id": 2, "body": "some comment", "postId": 1 }
+    {
+      "id": 2,
+      "body": "some comment",
+      "postId": 1
+    }
   ],
-  "profile": { "name": "typicode" }
+  "profile": {
+    "name": "typicode"
+  }
 }
